@@ -18,28 +18,7 @@ const LoginPage = () => {
   };
 
   const handleLogin = async (e) => {
-    e.preventDefault();
-
-    try {
-      const response = await fetch("/api/auth", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(credentials),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        console.log("Autenticación exitosa:", data.resultado);
-        navigate("/products");
-      } else {
-        console.log("Error de autenticación:", data.error);
-      }
-    } catch (error) {
-      console.error("Error en la solicitud:", error);
-    }
+    navigate("/products");
   };
 
   const goToRegister = () => {
