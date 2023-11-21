@@ -17,17 +17,28 @@ const LoginPage = () => {
     });
   };
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    // Simulando la autenticación exitosa (puedes ajustar esto según tu lógica real)
-    const isAuthenticationSuccessful = true;
 
-    if (isAuthenticationSuccessful) {
-      // Redirige a ProductsPage.js después de iniciar sesión exitosamente
-      navigate("/products");
-    } else {
-      // Maneja el caso en que la autenticación falla (puedes mostrar un mensaje de error, etc.)
-      console.log("Error de autenticación");
+    try {
+      const response = await fetch("/api/auth", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(credentials),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log("Autenticación exitosa:", data.resultado);
+        navigate("/products");
+      } else {
+        console.log("Error de autenticación:", data.error);
+      }
+    } catch (error) {
+      console.error("Error en la solicitud:", error);
     }
   };
 
