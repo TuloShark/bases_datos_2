@@ -1,0 +1,25 @@
+Proceso de Configuración de Replicación de Datos para Bodegas de Inventario
+===========================================================================
+
+Descripción General:
+---------------------
+Este documento detalla el proceso seguido para configurar la replicación de datos entre tres bases de datos 
+correspondientes a las bodegas de inventario ubicadas en Norteamérica, Suramérica y el Caribe, utilizando SQL Server.
+
+Paso 1: Preparación de las Bases de Datos
+------------------------------------------
+- Se configuraron tres bases de datos dentro de una misma instancia de SQL Server, cada una correspondiente a una bodega diferente.
+- Se habilitó el modelo de recuperación completa para cada base de datos para soportar la replicación transaccional.
+
+Paso 2: Configuración de la Replicación Transaccional
+------------------------------------------------------
+- Se eligió la base de datos de Norteamérica como el Publicador y las bases de datos de Suramérica y el Caribe como Suscriptores.
+- Se configuró el Publicador y el Distribuidor en la instancia de SQL Server:
+  - Se utilizó el asistente de 'New Publication' en SQL Server Management Studio (SSMS) para crear publicaciones.
+  - Se seleccionaron las tablas específicas que requerían replicación, centradas principalmente en datos críticos como niveles de stock e información de productos.
+- Se configuraron los Suscriptores:
+  - En cada base de datos de Suramérica y el Caribe, se utilizó el asistente de 'New Subscription' para suscribirse a las publicaciones del Publicador.
+
+
+(Utilicé la instancia localhost y el nombre de conexión 'zadok' para acceder al wizard de la configuración de la replicación).
+Nota para mí mismo: recordar activar el SQL Server Agent si quiero volver a hacer una replicación aunque sea de prueba.

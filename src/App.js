@@ -9,6 +9,8 @@ import CheckoutPage from "./CheckoutPage";
 import ConfirmationPage from "./ConfirmationPage";
 import LoginPage from "./LoginPage";
 import RegisterPage from "./RegisterPage";
+import Employees from './Employees';
+import CustomerService from './CustomerService';
 
 function App() {
   const [cartItems, setCartItems] = useState([]);
@@ -61,6 +63,8 @@ function App() {
               }
             />
             <Route path="/checkout" element={<CheckoutPage />} />
+            <Route path="/employees" element={<Employees />} />
+            <Route path="/customerservice" element={<CustomerService />} />
             <Route
               path="/confirmation"
               element={<ConfirmationPage cartItems={cartItems} />}

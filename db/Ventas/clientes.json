@@ -1,0 +1,26 @@
+[
+    {
+        "_id": "cliente001",
+        "nombre": "Ana Martinez",
+        "contacto": {
+            "email": "ana.martinez@example.com",
+            "telefono": "1234567890"
+        },
+        "direccion": "123 Calle Principal, Ciudad A, Pa\u00eds A",
+        "historialPedidos": [
+            "orden001"
+        ]
+    },
+    {
+        "_id": "cliente002",
+        "nombre": "Carlos L\u00f3pez",
+        "contacto": {
+            "email": "carlos.lopez@example.com",
+            "telefono": "0987654321"
+        },
+        "direccion": "456 Calle Secundaria, Ciudad B, Pa\u00eds B",
+        "historialPedidos": [
+            "orden002"
+        ]
+    }
+]

@@ -1,0 +1,66 @@
+function getPayrollCostReports({ startDate, endDate, countryId, roleId, departmentId }, callback) {
+  let query = `
+    SELECT 
+      e.nombre AS EmployeeName,
+      p.nombrePais AS Country,
+      r.nombreRol AS Role,
+      d.nombreDepartamento AS Department,  -- Assuming there's a department table
+      il.salario AS Salary,
+      csp.porcentaje AS SocialChargePercentage,
+      (il.salario * csp.porcentaje / 100) AS SocialChargeAmount
+    FROM 
+      InfoPersonal e
+      JOIN InfoLaboral il ON e.empleadoId = il.empleadoId
+      JOIN Paises p ON il.paisId = p.paisId
+      JOIN Roles r ON il.rolId = r.rolId
+      LEFT JOIN Departamentos d ON r.departamentoId = d.departamentoId  -- Join with department
+      JOIN CargasSocialesPorPais csp ON p.paisId = csp.paisId
+  `;
+
+  let conditions = [];
+  let params = [];
+
+  if (startDate && endDate) {
+    conditions.push("il.fechaInicio BETWEEN ? AND ?");
+    params.push(startDate, endDate);
+  }
+
+  if (countryId) {
+    conditions.push("il.paisId = ?");
+    params.push(countryId);
+  }
+
+  if (roleId) {
+    conditions.push("il.rolId = ?");
+    params.push(roleId);
+  }
+
+  if (departmentId) {
+    conditions.push("d.departamentoId = ?");
+    params.push(departmentId);
+  }
+
+  if (conditions.length) {
+    query += " WHERE " + conditions.join(" AND ");
+  }
+
+  connection.query(query, params, (error, results) => {
+    if (error) return callback(error, null);
+    callback(null, results);
+  });
+}
+Express Route for Payroll Cost Reports:
+javascript
+Copy code
+app.get('/payroll-cost-reports', (req, res) => {
+  const { startDate, endDate, countryId, roleId, departmentId } = req.query;
+
+  getPayrollCostReports({ startDate, endDate, countryId, roleId, departmentId }, (error, report) => {
+    if (error) {
+      res.status(500).send('Error retrieving payroll cost report');
+      return;
+    }
+
+    res.json(report);
+  });
+});

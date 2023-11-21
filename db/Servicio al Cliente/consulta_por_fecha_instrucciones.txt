@@ -1,0 +1,72 @@
+To address the requirement of viewing customer queries by date and identifying potential issues with warehouses, you need to create a system in your web application that allows filtering and analysis of customer queries. This involves both backend and frontend development:
+
+Backend (Node.js)
+API Endpoint for Filtered Queries:
+
+Develop an API endpoint in your Node.js server that allows fetching customer queries (Consultas) filtered by dates and potentially linked to specific warehouses.
+Implement query parameters to filter by date range.
+Database Query for Filtering:
+
+Write a SQL query that joins the Consultas, Orders, and possibly a warehouse-related table (if warehouse data is stored in your database). This query should filter records based on the provided date range and other relevant criteria.
+Data Aggregation (Optional):
+
+If you need to identify trends or common issues, consider writing a query that aggregates data (like counting the number of queries related to each warehouse).
+Frontend (React)
+Date Filter UI:
+
+Create a user interface that allows users to select a date range for filtering queries.
+Implement additional filters as needed (e.g., warehouse selection).
+Fetch and Display Data:
+
+Use React to call the new API endpoint with the selected filters.
+Display the results in a format that allows easy identification of issues, like a table or a chart.
+Analysis Tools (Optional):
+
+Implement UI components that help in analyzing the data, like summary statistics or visualizations.
+Example Implementation
+Backend (Node.js):
+
+javascript
+Copy code
+app.get('/api/queries', async (req, res) => {
+  const { startDate, endDate } = req.query;
+  
+  try {
+    const query = 'SELECT * FROM Consultas WHERE fechaHora BETWEEN $1 AND $2';
+    const result = await db.query(query, [startDate, endDate]);
+    res.json(result.rows);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
+Frontend (React):
+
+javascript
+Copy code
+// State for storing query data and date filters
+const [queries, setQueries] = useState([]);
+const [startDate, setStartDate] = useState('');
+const [endDate, setEndDate] = useState('');
+
+// Function to fetch data based on selected dates
+const fetchQueries = () => {
+  fetch(`/api/queries?startDate=${startDate}&endDate=${endDate}`)
+    .then(response => response.json())
+    .then(data => setQueries(data));
+};
+
+// JSX for date filters and data display
+return (
+  <div>
+    <input type="date" value={startDate} onChange={e => setStartDate(e.target.value)} />
+    <input type="date" value={endDate} onChange={e => setEndDate(e.target.value)} />
+    <button onClick={fetchQueries}>Filter Queries</button>
+    {/* Display queries in a table or other format */}
+  </div>
+);
+This implementation will allow staff to filter and analyze customer queries based on dates, and assess if there are recurring issues related to specific warehouses. The analysis can help in making informed decisions and improving logistics.
+
+
+
+
+

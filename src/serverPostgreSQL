@@ -1,0 +1,45 @@
+const express = require('express');
+const { Pool } = require('pg');
+const cors = require('cors');
+
+const app = express();
+const port = 8082;
+
+// PostgreSQL pool
+const pool = new Pool({
+  user: 'postgres',
+  host: 'localhost',
+  database: 'ServicioCliente',
+  password: '(Nemesta151005)',
+  port: 5432
+});
+
+app.use(cors());
+
+// Existing endpoint for consultas
+app.get('/consultas', (req, res) => {
+    const sql = 'SELECT c.nombre AS ClienteNombre, e.nombre AS EmpleadoNombre, con.fechahora, con.tipoconsulta, con.detalle, con.estado FROM consultas con JOIN clients c ON con.clienteid = c.clienteid JOIN empleados e ON con.empleadoid = e.empleadoid;';
+    pool.query(sql, (err, result) => {
+        if (err) {
+            console.error('Error executing query', err.stack);
+            return res.status(500).json({ error: 'Internal Server Error' });
+        }
+        res.json(result.rows);
+    });
+});
+
+// New endpoint for orders
+app.get('/orders', (req, res) => {
+    const sql = 'SELECT o.orderid, c.nombre AS clientename, o.orderdate, o.shippingstatus FROM orders o JOIN clients c ON o.clienteid = c.clienteid;';
+    pool.query(sql, (err, result) => {
+        if (err) {
+            console.error('Error executing query', err.stack);
+            return res.status(500).json({ error: 'Internal Server Error' });
+        }
+        res.json(result.rows);
+    });
+});
+
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
+});

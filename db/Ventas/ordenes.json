@@ -1,0 +1,51 @@
+[
+    {
+        "_id": "orden001",
+        "clienteId": "cliente001",
+        "productos": [
+            {
+                "productoId": "prod001",
+                "cantidad": 2,
+                "precio": 100.0
+            },
+            {
+                "productoId": "prod002",
+                "cantidad": 1,
+                "precio": 200.0
+            }
+        ],
+        "estado": "procesado",
+        "fechaOrden": "2023-11-01T10:00:00Z",
+        "detallesEnvio": {
+            "direccion": "123 Calle Principal, Ciudad A, Pa\u00eds A",
+            "costoEnvio": 10.0,
+            "estimadoEntrega": "2023-11-05"
+        },
+        "detallesFacturacion": {
+            "metodoPago": "Tarjeta de Cr\u00e9dito",
+            "total": 310.0
+        }
+    },
+    {
+        "_id": "orden002",
+        "clienteId": "cliente002",
+        "productos": [
+            {
+                "productoId": "prod003",
+                "cantidad": 1,
+                "precio": 50.0
+            }
+        ],
+        "estado": "enviado",
+        "fechaOrden": "2023-11-02T11:30:00Z",
+        "detallesEnvio": {
+            "direccion": "456 Calle Secundaria, Ciudad B, Pa\u00eds B",
+            "costoEnvio": 5.0,
+            "estimadoEntrega": "2023-11-07"
+        },
+        "detallesFacturacion": {
+            "metodoPago": "PayPal",
+            "total": 55.0
+        }
+    }
+]

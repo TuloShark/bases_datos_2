@@ -1,0 +1,29 @@
+[
+    {
+        "_id": "prod001",
+        "nombre": "Laptop XYZ",
+        "descripcion": "Laptop de alta gama para gaming",
+        "precio": 100.0,
+        "stock": 50,
+        "categoria": "Electr\u00f3nica",
+        "ubicacion": "Bodega Norteam\u00e9rica"
+    },
+    {
+        "_id": "prod002",
+        "nombre": "C\u00e1mara Fotogr\u00e1fica ABC",
+        "descripcion": "C\u00e1mara profesional para fot\u00f3grafos",
+        "precio": 200.0,
+        "stock": 30,
+        "categoria": "Fotograf\u00eda",
+        "ubicacion": "Bodega Europa"
+    },
+    {
+        "_id": "prod003",
+        "nombre": "Smartwatch DEF",
+        "descripcion": "Reloj inteligente con m\u00faltiples funciones",
+        "precio": 50.0,
+        "stock": 100,
+        "categoria": "Accesorios",
+        "ubicacion": "Bodega Asia"
+    }
+]
